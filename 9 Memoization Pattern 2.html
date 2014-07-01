@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Memoize Function</title>
+    <script type="text/javascript">
+        // Memoize any function:
+
+        // written by Addy Osmani
+        // Provide reference to class: http://addyosmani.com/blog/faster-javascript-memoization/
+        function memoize( fn ) {
+            return function () {
+                var args = Array.prototype.slice.call(arguments),
+                        hash = '',
+                        i = args.length,
+                        currentArg = null;
+                while (i--) {
+                    currentArg = args[i];
+                    hash += (currentArg === Object(currentArg)) ?
+                            JSON.stringify(currentArg) : currentArg;
+                    fn.memoize || (fn.memoize = {});
+                }
+                console.log(this);
+                return (hash in fn.memoize) ? fn.memoize[hash] :
+                        fn.memoize[hash] = fn.apply(this, args);
+            };
+        }
+
+        function factorial(x){
+
+            if (x < 2) return 1;
+            else return x * factorial(x - 1);
+        }
+
+        function add(x, y){
+
+        }
+
+        var factorial_memoized = memoize(factorial);
+        console.log(factorial_memoized(6));
+        console.dir(factorial_memoized.memoize);
+
+        // Class project - run jsPerf or custom efficiency check
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

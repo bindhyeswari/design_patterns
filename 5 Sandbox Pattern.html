@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sandbox Pattern</title>
+    <script type="text/javascript">
+        // Adding the modules
+        Sandbox.modules = {};
+        Sandbox.modules.weather = function(lib){
+            lib.getWeatherByCity = function(city){
+                // make ajax call to get weather by city
+                console.log('Its windy in Sunnyvale!');
+
+            };
+            lib.getWeatherByLatLong = function (lat, long){
+                // make an ajax call to get weahter by latitude and longitude
+            }
+        };
+
+        Sandbox.modules.county = function(lib){
+            lib.getCountyInfo = function(state){
+                // Get county information for the state
+            }
+        };
+
+        // Sandbox constructor
+        function Sandbox(){
+            var args = Array.prototype.slice.call(arguments),
+                    callback = args.pop(),
+                    modules = (args[0] && typeof args[0] === 'string') ? args : args[0],
+                    i;
+
+            if(!(this instanceof Sandbox))
+                return new Sandbox(modules, callback);
+
+            this.state = 'California';
+            this.city = 'Sunnyvale';
+
+            // add all modules if * or no specification is provided
+            if (!modules || modules === '*') {
+                modules = [];
+                for (i in Sandbox.modules){
+                    if(Sandbox.modules.hasOwnProperty(i))
+                        modules.push(i);
+                }
+            }
+
+            // initialize required modules
+            for (i = 0; i < modules.length; i++) {
+                Sandbox.modules[modules[i]](this)
+            }
+
+            callback(this);
+
+        }
+
+        // Make all constant information on the library accessible via the
+        // prototype property
+
+        Sandbox.prototype = {
+            author: 'Krithika',
+            version: '1.0',
+            description: 'deals with the information regarding counties and weather'
+        };
+
+
+        window.onload = function(){
+
+            Sandbox('weather',function(weather){
+                weather.getWeatherByCity('sunnyvale');
+                Sandbox(['weather', 'county'], function(lib){
+                    console.log(lib);
+                });
+            });
+
+        };
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

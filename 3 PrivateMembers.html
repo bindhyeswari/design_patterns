@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Creating Private Members</title>
+    <script type="text/javascript">
+        // Private members using closures...
+        window.onload = function(){
+            // demo_private_variables()
+            demo_private_object_literals();
+        };
+
+        function demo_private_variables(){
+            function Person(_name){
+                var name_private = _name;
+                this.getName = function(){
+                    return name_private;
+                };
+            }
+
+            // Create a person named foram and try to access her name
+
+            var foram = new Person('Foram Shah');
+            console.log(foram.getName());
+
+            // Try and change the name now.
+
+            // Try and return an object as a private variable such as:
+            // {address: { city: 'blahblah', zip:'123456789}}
+
+
+            // Discuss privacy failures...
+        }
+
+        function demo_private_object_literals(){
+            // Use an immediate function to create an object literal:
+
+            var person = (function (){
+                var _name = 'Foram Shah';
+                return {
+                    get name(){
+                        return _name;
+                    }
+
+                };
+            }());
+
+            console.log(person.name);
+        }
+
+
+
+
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

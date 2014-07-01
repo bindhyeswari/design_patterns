@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chaining Pattern</title>
+    <script type="text/javascript">
+
+        // Class project - write code to chain various functions such as
+
+        // Create properties on a object, update it, and delete a few other properties
+
+        // using custom methods
+        var arithmetic = {
+            val: 10,
+            // add multiply and square
+            add: function(y){
+                this.val += y;
+                console.log('Adding ' + y + ' to val: ' + this.val);
+                return this;
+            },
+
+            square: function(x){
+                this.val *= x;
+                console.log('Multiplying ' + x + ' to val: ' + this.val);
+                return this;
+            },
+
+            multiply: function(z){
+                this.val *= z;
+                console.log('Multiplying ' + z + ' to val: ' + this.val);
+                return this;
+            }
+
+//        	answer: function(){
+//            	console.log(this.y + this.x + this.z);
+//        	}
+
+        };
+
+        var all_op = arithmetic.add(4).multiply(3).square(5);
+        console.log(all_op.val);
+
+
+
+    </script>
+
+</head>
+
+<body>
+
+</body>
+
+</html>
+

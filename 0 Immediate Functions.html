@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Immediate functions</title>
+    <script type="text/javascript">
+
+        // Create immediate functions to perform operations,
+        // return functions, accept parameters, return variables
+
+        (function(){
+            console.log('Hello World from Foram');
+        }());
+
+        (function(person){
+            console.log('Hello World from ' + person);
+        }('Raj'));
+
+        var getName = (function(person){
+            var _person = person;
+
+            return function(){
+                return _person;
+            };
+        })('Krithika');
+
+        console.log('Hello World from ' + getName());
+
+        // Immediate Object Initialization
+
+        ({
+            name: 'Foram',
+            id: 300,
+
+            return_id: function(){
+                return this.id;
+            },
+
+            return_name: function(salutation){
+                return salutation + ' ' + this.name;
+            },
+
+            instantiate: function(salutation){
+                console.log('Hello world from ' + this.return_name(salutation) + '; ID: ' + this.return_id());
+            }
+        }).instantiate('Dr');
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

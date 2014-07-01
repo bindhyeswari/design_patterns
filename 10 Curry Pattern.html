@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Curry Pattern</title>
+    <script type="text/javascript">
+        // General Function
+        function multiply(x, y){
+            return x * y;
+        }
+
+        // A situation might arise wherein we have a 25% discount on
+        // all the products
+        console.log(multiply(0.25, 10));
+        console.log(multiply(0.25, 100));
+        console.log(multiply(0.25, 400));
+
+        // Multiply function supporting currying
+        function multiply_curried(x, y){
+            if ( typeof y === 'undefined' ) {
+                return function(y) {
+                    return x * y;
+                };
+            }
+        }
+
+        var quarterDiscount = multiply_curried(0.25);
+
+        console.log(quarterDiscount(10));
+        console.log(quarterDiscount(100));
+        console.log(quarterDiscount(400));
+
+        // writing a general purpose currying function
+        function curry_a_function(fn){
+            var stored_args = Array.prototype.slice.call(arguments, 1);
+            return function(){
+                var new_args = Array.prototype.slice.call(arguments);
+                var args = stored_args.concat(new_args);
+                return fn.apply(null, args);
+            };
+        }
+
+        var heftyDiscount = curry_a_function(multiply, 0.50);
+        console.log(heftyDiscount(10));
+        console.log(heftyDiscount(100));
+        console.log(heftyDiscount(400));
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Load Time Branching</title>
+
+    <script type="text/javascript">
+
+        // Used to initialize features once.
+
+        var utilities = {
+            addListener: null,
+            removeListener: null
+        };
+
+        if (window.addEventListener) {
+            utilities.addListener = function(element, type, event_handler){
+                element.addEventListener(type, event_handler, false);
+            };
+            utilities.removeListener = function(element, type, event_handler){
+                element.removeEventListener(type, event_handler, false);
+            };
+        } else if (document.attachEvent) {
+            utilities.addListener = function(element, type, event_handler) {
+                element.attachEvent('on' + type, event_handler);
+            };
+            utilities.removeListener = function(element, type, event_handler) {
+                element.detachEvent('on' + type, event_handler);
+            };
+        } else {
+            utilities.addListener = function (element, type, event_handler) {
+                element['on' + type] = event_handler;
+            };
+            utilities.removeListener = function (element, type, event_handler) {
+                element['on' + type] = null;
+            };
+        }
+
+        // write code to add events to a button - class project
+
+        window.onload = function (){
+            utilities.addListener(document.body.children[0], 'click', function(){
+                var div = document.createElement('div');
+                div.innerHTML = 'Hello World';
+                document.body.appendChild(div);
+            });
+
+        };
+
+
+    </script>
+</head>
+<body>
+    <button>Print Hello World</button>
+</body>
+</html>

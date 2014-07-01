@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Memoization Pattern</title>
+    <script type="text/javascript">
+
+        function factorial(x){
+            if (x < 2) {
+                return 1;
+            }
+            else {
+                return x * factorial(x-1);
+            }
+        }
+
+        console.log(factorial(5));
+
+        assert(factorial);
+
+        function assert(){
+
+            // User passes two values of the same type
+            // User passes a function and two values - inp and op
+            // User passes a function and a test object
+
+            if (typeof arguments[0] === 'function') {
+                var fn = arguments[0];
+                if (arguments.length === 3) {
+                    console.log((fn(arguments[1]) === arguments[2]) ? 'test passed' : 'test failed');
+                } else {
+                    console.log((fn(arguments[1].inp) === arguments[1].op) ? 'test passed' : 'test failed');
+                }
+
+            } else {
+                console.log((arguments[0] === arguments[1]) ? 'test passed' : 'test failed');
+            }
+        }
+
+        function compute(fn, inp){
+
+        }
+
+        var factorial_cache = {};
+        function factorial_memoized(x) {
+
+            if (x in factorial_cache) return factorial_cache[x];
+            else {
+                if (x < 2) return 1;
+                else {
+                    factorial_cache[x] = x * factorial_memoized(x-1);
+                    return factorial_cache[x];
+                }
+
+            }
+        }
+
+        console.log(factorial_memoized(5));
+
+        // Class project --> Check difference using jsPerf or custom testing application
+        // Show results in %age
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

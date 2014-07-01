@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Namespace Pattern</title>
+    <script type="text/javascript">
+        // Defined somewhere within a bunch of Javascript files
+        var WEATHERAPP = WEATHERAPP || {};    // gll
+        WEATHERAPP.namespace_init = function(ns){
+            // Check if the modules for the namespace exist. If not, create them.
+            // If they do exist, just return
+
+            // ns = 'security.team1.restcountries.language'
+            var parts = ns.split('.');
+            var parent = WEATHERAPP;  // gll
+            var i;
+
+
+            // ['WEATHERAPP','weatherModule', 'forecast']
+            // parts = ['gll',  'security', 'team1', 'restcountries', 'language']
+            // remove the global namespace
+            if (parts[0] === 'WEATHERAPP')
+                parts.splice(0,1);
+
+            // parts = ['security', 'team1', 'restcountries', 'language']
+            // ['weatherModule', 'forecast']
+            // loop to create all the parts
+            for (i = 0; i < parts.length; i++) {
+                // secutiry.team1 --> undefined
+                if (typeof parent[parts[i]] === 'undefined') {
+                    parent[parts[i]] = {};
+                }
+                parent = parent[parts[i]];
+            }
+            return parent;
+        };
+
+
+        window.onload = function(){
+
+            var forecast = WEATHERAPP.namespace_init('WEATHERAPP.weatherModule.forecast');
+            console.log(WEATHERAPP);
+            forecast.days = 10;
+
+            // Try recreating forecast. It should not overwrite forecast days
+            var forecastFunction = WEATHERAPP.namespace_init('WEATHERAPP.weatherModule.forecastFunction');
+            forecastFunction = function (){};
+            console.log(WEATHERAPP);
+
+        };
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Namespace Pattern</title>
+    <script type="text/javascript">
+        window.onload = function(){
+            pattern_namespace();
+            var wthr = WEATHERAPP;
+        };
+
+        function antiPattern_GlobalPollution(){
+            // This function declares global modules to be used without
+            //  a base
+
+            var cityinfo = ['Los Angeles', 'Dublin', 'San Diego', 'San Francisco'];
+            function getWeather(){
+                // make an AJAX call to get weather information about the city
+            }
+            function sortByCountyName(a, b){
+                // function that sorts by the county name property of the objects
+            }
+            var ca_county_info = []; // populate this data from sba gov
+
+
+
+        }
+
+        function pattern_namespace(){
+            WEATHERAPP = {}; // Notice the all CAPS
+            WEATHERAPP.weatherModule = {};
+            WEATHERAPP.countyModule = {};
+            WEATHERAPP.weatherModule.getWeatherByCityName = function(city){
+                // make an AJAX call to get weather information about the city
+            };
+            WEATHERAPP.countyModule.sortByCountyName = function sortByCountyName(a, b){
+                // function that sorts by the county name property of the objects
+            };
+            WEATHERAPP.countyModule.CA_county_info = [];
+            WEATHERAPP.countyModule.ca_county_info = []; // populate this data from sba gov
+
+
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>

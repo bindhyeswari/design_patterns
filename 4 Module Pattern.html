@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Revealing Module Pattern</title>
+    <script type="text/javascript">
+
+        // from the namespace_init function
+        var MYAPP = MYAPP || {};
+        MYAPP.namespace_init = function(ns){
+            // Check if the modules for the namespace exist. If not, create them.
+            // If they do exist, just return
+
+            var parts = ns.split('.');
+            var parent = MYAPP;
+            var i;
+
+            // remove the global namespace
+            if (parts[0] === 'MYAPP')
+                parts.splice(0,1);
+
+            // loop to create all the parts
+            for (i = 0; i < parts.length; i++) {
+                if (typeof parent[parts[i]] === 'undefined') {
+                    parent[parts[i]] = {};
+                }
+                parent = parent[parts[i]];
+            }
+            return parent;
+        };
+
+        window.onload  =function(){
+
+            MYAPP.namespace_init('MYAPP.utilities.math');
+            MYAPP.utilities.math = (function(){
+                function _cube(x){
+                    return x * x * x;
+                }
+                function _square(x){
+                    return x * x;
+                }
+
+                return {
+                    multiplyTwice: _square,
+                    squareThis: _square
+                };
+            }());
+
+            var x = MYAPP.utilities.math.multiplyTwice(32);
+
+            MYAPP.utilities.math.multiplyTwice = function(x){
+                return x / 2;
+            };
+
+            var y = MYAPP.utilities.math.multiplyTwice(32);
+            console.log(y);
+            var y = MYAPP.utilities.math.squareThis(32);
+
+            console.log(x);
+            console.log(y);
+
+        };
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
