@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+
+    // publisher - {
+    //   publish: function (eventType) {
+    //      // publishes the event
+    //   }
+    // }
+    // subscribers - {}
+
+    // publisher object publishes a 'publishmagazine' event -- >
+    // subscribers perform some action
+
+
+    // subscriber.subscribe('publish_magazine', publisher, function () {
+    //
+    // })
+
+    // publisher.publish('publish_magazine')
+
+    //
+
+    function Subscriber() {
+
+    }
+    Subscriber.prototype.subscribe = function ( eventType, publisher, callback ) {
+        publisher.events[eventType].push(callback);
+    };
+
+    function Publisher () {
+        // create a property to store the types of events supported
+        // This property is an object that stores the following information for every event
+        // eventType, an array of subscriptions
+        // subscriptions --> array of functions to be invoked
+        this.events = {};
+    }
+    Publisher.prototype.publish = function (eventType) {
+        this.events[eventType].forEach(function (fn) {
+            fn();
+        });
+    };
+    Publisher.prototype.createEvent = function (eventType) {
+        this.events[eventType] = [];
+    };
+
+    var publisher = new Publisher();
+    var subscriber = new Subscriber();
+    var subscriber2 = new Subscriber();
+
+    console.log(publisher);
+
+    publisher.createEvent('publish_magazine');
+    console.log(publisher);
+    subscriber.subscribe('publish_magazine', publisher, function () {
+        console.log('Just bought the magazine ... ');
+    });
+    subscriber2.subscribe('publish_magazine', publisher, function () {
+        console.log('Read the magazine online ... ');
+    });
+
+    publisher.publish('publish_magazine');
+
+
+</script>
+
+</body>
+</html>

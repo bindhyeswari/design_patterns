@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+
+    var constr = 'merc';
+
+    // constructor is not known at compile time
+    function CarFactory() {
+        this.wheels = 4;
+    }
+
+    CarFactory.create = function (constr) {
+
+        // wheels = 4
+
+        CarFactory.Merc = function () {
+            this.company = 'Mercedez';
+        };
+        CarFactory.Bmw = function () {
+            this.company = 'BMW';
+        };
+
+        CarFactory[constr].prototype = new CarFactory();
+        return new CarFactory[constr](); // new Factory.merc()
+    };
+
+    var merc = CarFactory.create(constr);
+    console.log(merc.company);
+    console.log(merc.wheels);
+
+    var c = new CarFactory();
+    // c --> CarFactory.prototype
+
+    // merc --> Carfactory.Merc.prototype --> CarFactory.prototype
+
+    // todo: Set up an inheritance chain: Person : Employee: Manager
+    // Person - name
+    // Employee - id
+    // Manager - location
+
+
+
+</script>
+</body>
+</html>

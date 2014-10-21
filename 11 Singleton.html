@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div>Refer to Javascript Design Patterns by Stoyan Stefanov</div>
+<script>
+    var Singleton;
+    (function () {
+        var instance;
+        Singleton = function Singleton() {
+            if (instance) {
+                return instance;
+            }
+            instance = this;
+        };
+    }());
+
+    var singleton = new Singleton();
+</script>
+<script>
+    // Test case 1
+    var singleton = new Singleton();
+    var singleton2 = new Singleton();
+    console.log(singleton === singleton2);
+
+    // Test case 2 - adding properties to the prototype object should show up in the base object
+    Singleton.prototype.type = 'singleton';
+    console.log(singleton);
+
+    // Test case 3 - constructor property should point to Singleton
+    console.log(singleton.constructor.name);
+
+
+</script>
+
+</body>
+</html>

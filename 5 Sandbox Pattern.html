@@ -3,9 +3,11 @@
 <head>
     <title>Sandbox Pattern</title>
     <script type="text/javascript">
+
+
         // Adding the modules
         Sandbox.modules = {};
-        Sandbox.modules.weather = function(lib){
+            Sandbox.modules.weather = function(lib){
             lib.getWeatherByCity = function(city){
                 // make ajax call to get weather by city
                 console.log('Its windy in Sunnyvale!');
@@ -15,6 +17,12 @@
                 // make an ajax call to get weahter by latitude and longitude
             }
         };
+        Sandbox.modules.currency =function (lib) {
+            lib.getCountriesbyCurrency = function (fn){
+                // makes an ajax call
+                // invokes fn once the call is complete fn(xhr.responseText)
+            };
+        };
 
         Sandbox.modules.county = function(lib){
             lib.getCountyInfo = function(state){
@@ -22,15 +30,28 @@
             }
         };
 
+        Sandbox(['currency', 'region'], function fn(obj) {
+            obj.getCountriesByCurrency(function (data) {
+                console.log(data);
+            });
+            obj.getCountriesByRegion(function (data) {
+                console.log(data);
+            });
+        });
+
         // Sandbox constructor
         function Sandbox(){
-            var args = Array.prototype.slice.call(arguments),
-                    callback = args.pop(),
+            var args = Array.prototype.slice.call(arguments),// arguments = ['asdf', fn]
+                    callback = args.pop(),// callback = fn, args = ['asdf']
                     modules = (args[0] && typeof args[0] === 'string') ? args : args[0],
                     i;
 
+            // modules should be an array of strings that I want to implement
+            // ['string']
+            // ['asdf', 'ss']
+
             if(!(this instanceof Sandbox))
-                return new Sandbox(modules, callback);
+                return new Sandbox(modules, callback); // modules = ['asdf'], callback = fn
 
             this.state = 'California';
             this.city = 'Sunnyvale';
@@ -44,8 +65,12 @@
                 }
             }
 
+            // modules = ['weather', 'county']
             // initialize required modules
             for (i = 0; i < modules.length; i++) {
+                // modules[0] --> 'weather'
+                // Sandbox.modules['weather']
+                // Sandbox.modules.weather (this)
                 Sandbox.modules[modules[i]](this)
             }
 
@@ -75,6 +100,7 @@
         };
 
 
+        // todo: implement restcountries.eu callingcode, language, currency, region, countryname, capital city and subregion
     </script>
 </head>
 <body>
