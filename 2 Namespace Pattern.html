@@ -25,12 +25,27 @@
 
         }
 
+        var path = 'GLL/countryModule/countries/getCountryInformation';
+
+        var GLL;
+        function init(path) {
+
+        }
+
+        init(path);
+        console.log(GLL);
+
+
+
         function pattern_namespace(){
             WEATHERAPP = {}; // Notice the all CAPS
-            WEATHERAPP.weatherModule = {};
+            WEATHERAPP.weatherModule = {
+                url: 'openweathermap.org/getWeather?city='
+            };
             WEATHERAPP.countyModule = {};
             WEATHERAPP.weatherModule.getWeatherByCityName = function(city){
                 // make an AJAX call to get weather information about the city
+
             };
             WEATHERAPP.countyModule.sortByCountyName = function sortByCountyName(a, b){
                 // function that sorts by the county name property of the objects
@@ -39,7 +54,14 @@
             WEATHERAPP.countyModule.ca_county_info = []; // populate this data from sba gov
 
 
+
         }
+
+
+        function getWeatherByCityName () {
+
+        }
+
     </script>
 </head>
 <body>

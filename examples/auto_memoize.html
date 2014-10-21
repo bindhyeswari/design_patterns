@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<script>
+
+    function factorial(x) {
+        return x === 1 ? 1 : x * factorial(x - 1);
+    }
+
+    function add(x, y) {
+        console.log(arguments);
+        return x + y;
+    }
+
+    function memoize(fn) {
+        function fn_memoized() {
+            // arguments = [100]
+            fn.apply(null, arguments);
+        }
+        fn_memoized.cache = {};
+
+        return fn_memoized;
+    }
+
+    var add_memoized = memoize(add);
+    add(1, 2, 3, 4);
+    add_memoized(1, 2);
+
+    var factorial_memoized = memoize(factorial);
+    console.log(factorial_memoized(100));
+
+</script>
+
+</body>
+</html>

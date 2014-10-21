@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<button>Make Ajax Call</button>
+<div id="results"></div>
+<script>
+
+    // http://restcountries.eu/rest/v1/name/norway
+
+    // todo: Implement caching so that repeated GET requests are not made
+    // i.e. if a country exists do not make a call for that country again.
+
+    makeAjax.cache = {};
+
+    function makeAjax(country, callback) {
+        if ( typeof makeAjax.cache[country] !== 'undefined' ) {
+            callback(makeAjax.cache[country]);
+        } else {
+            makeAjax.cache[country] = 'Contacting Server ... ';
+            var url = 'http://restcountries.eu/rest/v1/name/' + country;
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url);
+            xhr.addEventListener('readystatechange', function () {
+                if ( xhr.status === 200 && xhr.readyState === 4 ) {
+                    makeAjax.cache[country] = xhr.responseText;
+                    callback(makeAjax.cache[country]);
+                }
+            });
+            xhr.send();
+        }
+    }
+
+    var div = document.getElementById('results');
+
+    document.body.firstElementChild.onclick = function () {
+        div.innerHTML = 'Contacting Server ... ';
+        makeAjax('Norway', function (results) {
+            console.log(results);
+            div.innerHTML = results;
+        });
+    };
+
+</script>
+
+</body>
+</html>

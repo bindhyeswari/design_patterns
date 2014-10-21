@@ -15,7 +15,7 @@
             console.log('Hello World from ' + person);
         }('Raj'));
 
-        var getName = (function(person){
+        var getName = (function createClosure(person){
             var _person = person;
 
             return function(){
@@ -23,9 +23,14 @@
             };
         })('Krithika');
 
+        // todo: Provide two more ways of writing immediate functions apart from
+        // (function () {} ()) and (function () {})()
+
+
         console.log('Hello World from ' + getName());
 
         // Immediate Object Initialization
+
 
         ({
             name: 'Foram',
@@ -36,13 +41,14 @@
             },
 
             return_name: function(salutation){
-                return salutation + ' ' + this.name;
+                console.log(salutation + ' ' + this.name);
             },
 
             instantiate: function(salutation){
                 console.log('Hello world from ' + this.return_name(salutation) + '; ID: ' + this.return_id());
+                return this;
             }
-        }).instantiate('Dr');
+        }).instantiate('Dr').return_name('Ms').return_id();
 
     </script>
 </head>
